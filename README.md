@@ -11,7 +11,7 @@ Under the guidance of **Dr. Meghna Dhalaria**, Assistant Professor, Dept. of CSE
 ## What this project does
 
 - **Segments customers** into groups using K-Means Clustering (unsupervised)
-- **Predicts purchase behaviour** (will a customer buy or not?) using KNN and Decision Tree (supervised)
+- **Predicts purchase behaviour** (will a customer buy or not?) using KNN, Decision Tree, and ANN (supervised)
 - **Evaluates** all models using Accuracy, Precision, Recall, and F1-Score — computed from scratch
 
 ---
@@ -23,6 +23,7 @@ Under the guidance of **Dr. Meghna Dhalaria**, Assistant Professor, Dept. of CSE
 | K-Means Clustering | Unsupervised | Group customers into segments |
 | K-Nearest Neighbors (KNN) | Supervised | Predict purchase label |
 | Decision Tree | Supervised | Predict purchase label |
+| Artificial Neural Network (ANN) | Supervised | Predict purchase label |
 
 ---
 
@@ -44,8 +45,9 @@ customer-segmentation-purchase-predictor/
 | Cell 3 | K-Means Clustering (K=3) |
 | Cell 4 | KNN Classifier (K=5) |
 | Cell 5 | Decision Tree (max depth=5, Gini impurity) |
-| Cell 6 | Evaluation metrics — Accuracy, Precision, Recall, F1, Confusion Matrix |
-| Cell 7 | Visualisations — cluster scatter plot, model comparison bar chart |
+| Cell 6 | ANN (3→4→1 architecture, sigmoid, backpropagation, 500 epochs) |
+| Cell 7 | Evaluation metrics — Accuracy, Precision, Recall, F1, Confusion Matrix |
+| Cell 8 | Visualisations — cluster scatter plot, ANN loss curve, model comparison bar chart |
 
 ---
 
@@ -105,6 +107,14 @@ Run cells top to bottom in order — each cell depends on variables from the pre
 - Recursive tree building (max depth = 5)
 - Tree stored as nested Python dictionaries
 
+**Artificial Neural Network (ANN)**
+- Architecture: 3 inputs → 4 hidden neurons → 1 output
+- Activation: Sigmoid `σ(x) = 1 / (1 + e⁻ˣ)`
+- Loss: Mean Squared Error (MSE)
+- Training: Backpropagation + Gradient Descent (lr = 0.1, epochs = 500)
+- Weights initialised as random values in [−0.5, +0.5]
+- Online gradient descent — weights updated after every sample
+
 **Evaluation Metrics**
 - Confusion matrix (TP, TN, FP, FN)
 - Accuracy = (TP + TN) / total
@@ -118,7 +128,9 @@ Run cells top to bottom in order — each cell depends on variables from the pre
 
 **K-Means Cluster Scatter Plot** — customers plotted by income vs spending score, coloured by cluster (red, blue, green), with centroids marked as black stars.
 
-**Model Comparison Bar Chart** — grouped bar chart comparing KNN and Decision Tree across all four metrics side by side.
+**ANN Training Loss Curve** — MSE loss plotted over 500 epochs, showing the network converging as it learns.
+
+**Model Comparison Bar Chart** — grouped bar chart comparing KNN, Decision Tree, and ANN across all four metrics side by side.
 
 ---
 
@@ -126,25 +138,25 @@ Run cells top to bottom in order — each cell depends on variables from the pre
 
 | Library | Version | Purpose |
 |---|---|---|
-| `random` | built-in | Data generation, weight init |
-| `math` | built-in | `sqrt` for Euclidean distance |
+| `random` | built-in | Data generation, weight initialisation |
+| `math` | built-in | `sqrt` for distance, `exp` for sigmoid |
 | `matplotlib` | any | Visualisation only |
 
-No NumPy. No Pandas. No Scikit-learn.
+No NumPy. No Pandas. No Scikit-learn. No TensorFlow.
 
 ---
 
 ## Limitations
 
 - Dataset is synthetic — results on real customer data may differ
+- ANN uses online gradient descent — mini-batch would be more stable
 - Decision Tree training is O(n × f × t) — slow on large datasets
 - KNN stores all training data — memory-intensive at scale
 - Single 80/20 split — no cross-validation
+- MSE used as ANN loss — Binary Cross-Entropy is more appropriate for classification
 
 ---
 
 ## Author
 
-**Navya** (Roll No. 241032041)  
-B.Tech CSE/IT  
-Jaypee University of Information Technology, Waknaghat
+**Navya Navya** 
